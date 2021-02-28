@@ -78,15 +78,16 @@ def main() -> None:
     # on different commands - answer in Telegram
     dispatcher.add_handler(CommandHandler("start", start))
 
-    incoming_message = MessageHandler(Filters.text, incoming_message_text)
-    incoming_message = MessageHandler(Filters.photo, incoming_message_action)
+    incoming_message_text = MessageHandler(Filters.text, incoming_message_text)
+    incoming_message_photo = MessageHandler(Filters.photo, incoming_message_action)
 
     updater.start_webhook(listen="0.0.0.0",
                           port=int(PORT),
                           url_path=TOKEN)
     updater.bot.setWebhook('https://botimzozli-bot.herokuapp.com/' + TOKEN)
 
-    dispatcher.add_handler(incoming_message)
+    dispatcher.add_handler(incoming_message_text)
+    dispatcher.add_handler(incoming_message_photo)
 
     # Start the Bot
     updater.start_polling()
