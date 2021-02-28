@@ -48,7 +48,7 @@ def start(update: Update, context) -> None:
     update.message.reply_text('שלח פה תמונות ולא לזיין יותר מדי את המוח בבקשה')
 
 def incoming_message_text(update, context):
-    context.bot.send_message(chat_id=update.message.chat_id, text="בוא לא תזיין ת'שכל ותשלח תמונות, אין לי עצבים אלייך היום")
+    update.message.reply_text("בוא לא תזיין ת'שכל ותשלח תמונות, אין לי עצבים אלייך היום")
 
 def incoming_message_action(update, context):
     try:
