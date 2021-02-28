@@ -47,10 +47,10 @@ def start(update: Update, context) -> None:
     """Send a message when the command /start is issued."""
     update.message.reply_text('שלח פה תמונות ולא לזיין יותר מדי את המוח בבקשה')
 
-def incoming_message_text(update, context):
+def incoming_message_action_text(update, context):
     update.message.reply_text("בוא לא תזיין ת'שכל ותשלח תמונות, אין לי עצבים אלייך היום")
 
-def incoming_message_action(update, context):
+def incoming_message_action_photo(update, context):
     try:
         logging.info (update.message.chat.username)
         file_obj = context.bot.get_file(update.message['photo'][-1]['file_id'])
@@ -78,8 +78,8 @@ def main() -> None:
     # on different commands - answer in Telegram
     dispatcher.add_handler(CommandHandler("start", start))
 
-    incoming_message_text = MessageHandler(Filters.text, incoming_message_text)
-    incoming_message_photo = MessageHandler(Filters.photo, incoming_message_action)
+    incoming_message_text = MessageHandler(Filters.text, incoming_message_action_text)
+    incoming_message_photo = MessageHandler(Filters.photo, incoming_message_action_photo)
 
     updater.start_webhook(listen="0.0.0.0",
                           port=int(PORT),
