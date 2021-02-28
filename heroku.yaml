@@ -1,4 +1,3 @@
 build:
   docker:
-    web: Dockerfile
-    worker: teleg-bot/Dockerfile
+    web: teleg-bot/Dockerfile
