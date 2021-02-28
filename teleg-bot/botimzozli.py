@@ -100,12 +100,7 @@ def inlinequery(update: Update, context) -> None:
 def main() -> None:
     # Create the Updater and pass it your bot's token.
     TOKEN = "1556697629:AAFQxfBWMxe6ZT6GfbxW3ZtYBr_y-PRj-NA"
-    updater = Updater(TOKEN)
-    updater.bot.setWebhook('https://botimzozli-bot.herokuapp.com/' + TOKEN)
-    updater.start_webhook(listen="0.0.0.0",
-                          port=int(PORT),
-                          url_path=TOKEN)
-    updater.bot.setWebhook('https://botimzozli-bot.herokuapp.com/' + TOKEN)
+    updater = Updater(TOKEN, use_context=True)
 
     # Get the dispatcher to register handlers
     dispatcher = updater.dispatcher
@@ -116,6 +111,10 @@ def main() -> None:
 
     # on noncommand i.e message - echo the message on Telegram
     incoming_message = MessageHandler(Filters.photo, incoming_message_action)
+    updater.start_webhook(listen="0.0.0.0",
+                          port=int(PORT),
+                          url_path=TOKEN)
+    updater.bot.setWebhook('https://botimzozli-bot.herokuapp.com/' + TOKEN)
 
     dispatcher.add_handler(incoming_message)
 
