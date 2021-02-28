@@ -45,56 +45,26 @@ logger = logging.getLogger(__name__)
 # context. Error handlers also receive the raised TelegramError object in error.
 def start(update: Update, context) -> None:
     """Send a message when the command /start is issued."""
-    update.message.reply_text('Hi!')
+    update.message.reply_text('שלח פה תמונות ולא לזיין יותר מדי את המוח בבקשה')
 
-
-def help_command(update: Update, context) -> None:
-    """Send a message when the command /help is issued."""
-    update.message.reply_text('Help!')
+def incoming_message_text(update, context):
+    context.bot.send_message(chat_id=update.message.chat_id, text="בוא לא תזיין ת'שכל ותשלח תמונות, אין לי עצבים אלייך היום")
 
 def incoming_message_action(update, context):
-    logging.info (update.message.chat.username)
-    file_obj = context.bot.get_file(update.message['photo'][-1]['file_id'])
-    file_uri = file_obj.file_path
-    file_id = file_obj.file_unique_id
-    logging.info(f"Message received: {update.message.chat.username} - [{file_uri}]")
-    cloudinary.uploader.upload(file_uri,
-        folder = "bots/botimzozli/",
-        public_id = file_id,
-        overwrite = False,
-        resource_type = "image")
-
-
-    if True:
-        context.bot.send_message(chat_id=update.message.chat_id, text="Download completed!")
-    else:
-        context.bot.send_message(chat_id=update.message.chat_id, text="Download NOT possible!")
-
-
-def inlinequery(update: Update, context) -> None:
-    """Handle the inline query."""
-    query = update.inline_query.query
-    results = [
-        InlineQueryResultArticle(
-            id=uuid4(), title="Caps", input_message_content=InputTextMessageContent(query.upper())
-        ),
-        InlineQueryResultArticle(
-            id=uuid4(),
-            title="Bold",
-            input_message_content=InputTextMessageContent(
-                f"*{escape_markdown(query)}*", parse_mode=ParseMode.MARKDOWN
-            ),
-        ),
-        InlineQueryResultArticle(
-            id=uuid4(),
-            title="Italic",
-            input_message_content=InputTextMessageContent(
-                f"_{escape_markdown(query)}_", parse_mode=ParseMode.MARKDOWN
-            ),
-        ),
-    ]
-
-    update.inline_query.answer(results)
+    try:
+        logging.info (update.message.chat.username)
+        file_obj = context.bot.get_file(update.message['photo'][-1]['file_id'])
+        file_uri = file_obj.file_path
+        file_id = file_obj.file_unique_id
+        logging.info(f"Message received: {update.message.chat.username} - [{file_uri}]")
+        cloudinary.uploader.upload(file_uri,
+            folder = "bots/botimzozli/",
+            public_id = file_id,
+            overwrite = False,
+            resource_type = "image")
+        context.bot.send_message(chat_id=update.message.chat_id, text="העלתי סתכל: https://botimzozli.vercel.app/ עוד משהו יהומו?")
+    except:
+        context.bot.send_message(chat_id=update.message.chat_id, text="משהו קרה ולא הצחלתי לעלות ת'תמונה, כנראה תקוע לי איזה זין איפשהו, שסומר או עציץ יבדקו בלוגים")
 
 
 def main() -> None:
@@ -107,10 +77,10 @@ def main() -> None:
 
     # on different commands - answer in Telegram
     dispatcher.add_handler(CommandHandler("start", start))
-    dispatcher.add_handler(CommandHandler("help", help_command))
 
-    # on noncommand i.e message - echo the message on Telegram
+    incoming_message = MessageHandler(Filters.text, incoming_message_text)
     incoming_message = MessageHandler(Filters.photo, incoming_message_action)
+
     updater.start_webhook(listen="0.0.0.0",
                           port=int(PORT),
                           url_path=TOKEN)
