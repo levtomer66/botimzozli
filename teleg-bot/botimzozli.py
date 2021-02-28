@@ -23,6 +23,9 @@ from telegram.ext import MessageHandler, CommandHandler, Filters
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+import os
+PORT = int(os.environ.get('PORT', 5000))
+
 
 cloudinary.config(
   cloud_name = "dreemf8x7",
@@ -96,7 +99,13 @@ def inlinequery(update: Update, context) -> None:
 
 def main() -> None:
     # Create the Updater and pass it your bot's token.
-    updater = Updater("1556697629:AAFQxfBWMxe6ZT6GfbxW3ZtYBr_y-PRj-NA")
+    TOKEN = "1556697629:AAFQxfBWMxe6ZT6GfbxW3ZtYBr_y-PRj-NA"
+    updater = Updater(TOKEN)
+    updater.bot.setWebhook('https://botimzozli-bot.herokuapp.com/' + TOKEN)
+    updater.start_webhook(listen="0.0.0.0",
+                          port=int(PORT),
+                          url_path=TOKEN)
+    updater.bot.setWebhook('https://botimzozli-bot.herokuapp.com/' + TOKEN)
 
     # Get the dispatcher to register handlers
     dispatcher = updater.dispatcher
