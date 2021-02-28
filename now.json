@@ -12,7 +12,7 @@
     ],
     "build": {
         "env": {
-            "API_URL": "http://botimzozli.vercel.app"
+            "API_URL": "https://botimzozli.vercel.app"
         }
     },
     "routes": [
