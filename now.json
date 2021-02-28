@@ -11,6 +11,9 @@
         }
     ],
     "build": {
+        "env": {
+            "API_URL": "http://botimzozli.vercel.app"
+        }
     },
     "routes": [
         { "src": "/api", "dest": "api/routes/index.js" },
