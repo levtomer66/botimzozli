@@ -49,11 +49,7 @@ def start(update: Update, context) -> None:
     update.message.reply_text('שלח פה תמונות ולא לזיין יותר מדי את המוח בבקשה')
 
 def incoming_message_action_text(update, context):
-    random_texts = ["בוא לא תזיין ת'שכל ותשלח תמונות, אין לי עצבים אלייך היום"
-    , "שמע יכלב היה לי יום ארוך אני מציע שתזדיין לי מהקבוצה"
-    , "בלי הודעות מה לא ברור? בלי הודעות רק תמונות, ובלי דיקפיקס לא רוצה לראות ת׳זין המסריח שלכם "
-    , "חלאסססססססססססס יראש עבאדי שלח תמונה או שתקבל קיק ", 
-    "אתה יודע מה אתה? נכון אתה על הזין 🖕🏼🖕🏼🖕🏼" ]
+    random_texts = ["בוא לא תזיין ת'שכל ותשלח תמונות, אין לי עצבים אלייך היום", "שמע יכלב היה לי יום ארוך אני מציע שתזדיין לי מהקבוצה" , "בלי הודעות מה לא ברור? בלי הודעות רק תמונות, ובלי דיקפיקס לא רוצה לראות ת׳זין המסריח שלכם ", "חלאסססססססססססס יראש עבאדי שלח תמונה או שתקבל קיק ", "אתה יודע מה אתה? נכון אתה על הזין 🖕🏼🖕🏼🖕🏼" ]
     update.message.reply_text(random.choice(random_text))
 
 def incoming_message_action_photo(update, context):
