@@ -49,7 +49,13 @@ def start(update: Update, context) -> None:
     update.message.reply_text('שלח פה תמונות ולא לזיין יותר מדי את המוח בבקשה')
 
 def incoming_message_action_text(update, context):
-    random_texts = ["בוא לא תזיין תשכל ותשלח תמונות, אין לי עצבים אלייך היום","שמע יכלב היה לי יום ארוך אני מציע שתזדיין לי מהקבוצה","בלי הודעות מה לא ברור? בלי הודעות רק תמונות, ובלי דיקפיקס לא רוצה לראות תזין המסריח שלכם","חלאסססססססססססס יראש עבאדי שלח תמונה או שתקבל קיק","אתה יודע מה אתה? נכון אתה על הזין " ]
+    random_texts = ["לא נטען לי טוב הקובץ בתחת, אז אני לא יכול לקלל אותך עכשיו, שעקציץ או סומר יסדרו לי תתחת"]
+    try:
+        with open('bot_replies.txt', 'r') as f:
+            random_texts = f.readlines()
+    except Exception as e:
+        print (e)
+        
     update.message.reply_text(random.choice(random_texts))
 
 def incoming_message_action_photo(update, context):
