@@ -51,7 +51,7 @@ def start(update: Update, context) -> None:
 def incoming_message_action_text(update, context):
     random_texts = ["לא נטען לי טוב הקובץ בתחת, אז אני לא יכול לקלל אותך עכשיו, שעקציץ או סומר יסדרו לי תתחת"]
     try:
-        with open('bot_replies.txt', 'r') as f:
+        with open('/app/bot_replies.txt', 'r') as f:
             random_texts = f.readlines()
     except Exception as e:
         logging.error (e)
