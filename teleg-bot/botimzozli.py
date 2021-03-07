@@ -54,7 +54,7 @@ def incoming_message_action_text(update, context):
         with open('bot_replies.txt', 'r') as f:
             random_texts = f.readlines()
     except Exception as e:
-        print (e)
+        logging.error (e)
         
     update.message.reply_text(random.choice(random_texts))
 
